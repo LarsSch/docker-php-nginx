@@ -1,0 +1,6 @@
+[submodule "nginx"]
+	path = nginx
+	url = https://github.com/oondeo/docker-openresty.git
+[submodule "5/nginx"]
+	path = 5/nginx
+	url = https://github.com/oondeo/docker-openresty.git
