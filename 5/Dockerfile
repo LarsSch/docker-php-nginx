@@ -50,12 +50,6 @@ ARG RESTY_CONFIG_OPTIONS=${RESTY_CONFIG_OPTIONS:-"\
     "
 ARG RESTY_CONFIG_OPTIONS_MORE=${RESTY_CONFIG_OPTIONS_MORE:-""}
 
-# These are not intended to be user-specified
-ARG _RESTY_CONFIG_DEPS=${_RESTY_CONFIG_DEPS:-"\
-    --with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} \
-    --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION} \
-    --add-module=/tmp/naxsi-$NAXSI_VERSION/naxsi_src"
-
 # 1) Install apt dependencies
 # 2) Download and untar OpenSSL, PCRE, and OpenResty
 # 3) Build OpenResty

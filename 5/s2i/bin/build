@@ -6,6 +6,11 @@ export RESTY_LUAROCKS_VERSION=${RESTY_LUAROCKS_VERSION:-$(curl -s https://raw.gi
 export RESTY_OPENSSL_VERSION=${RESTY_OPENSSL_VERSION:-$(curl -s https://raw.githubusercontent.com/openresty/docker-openresty/master/jessie/Dockerfile | grep "ARG RESTY_OPENSSL_VERSION[ =]" | cut -f2 -d\" )}
 export RESTY_PCRE_VERSION=${RESTY_PCRE_VERSION:-$(curl -s https://raw.githubusercontent.com/openresty/docker-openresty/master/jessie/Dockerfile | grep "ARG RESTY_PCRE_VERSION[ =]" | cut -f2 -d\" )}
 export RESTY_J=${RESTY_J:-$(curl -s https://raw.githubusercontent.com/openresty/docker-openresty/master/jessie/Dockerfile | grep "ARG RESTY_J[ =]" | cut -f2 -d"\"")}
+# These are not intended to be user-specified
+export  _RESTY_CONFIG_DEPS=${_RESTY_CONFIG_DEPS:-"\
+    --with-openssl=/tmp/openssl-${RESTY_OPENSSL_VERSION} \
+    --with-pcre=/tmp/pcre-${RESTY_PCRE_VERSION} \
+    --add-module=/tmp/naxsi-$NAXSI_VERSION/naxsi_src"
 
 # 1) Install apt dependencies
 # 2) Download and untar OpenSSL, PCRE, and OpenResty
