@@ -4,3 +4,9 @@
 [submodule "5/nginx"]
 	path = 5/nginx
 	url = https://github.com/oondeo/docker-openresty.git
+[submodule "7/nginx"]
+	path = 7/nginx
+	url = https://github.com/oondeo/docker-openresty.git
+[submodule "hhvm/nginx"]
+	path = hhvm/nginx
+	url = https://github.com/oondeo/docker-openresty.git
