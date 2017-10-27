@@ -77,7 +77,8 @@ RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
       -c "Default Application User" default || true
 RUN chown -R 1001:0 /opt/app-root \
     && chmod -R g+w /opt/app-root \
+    && chmod ug+s /opt/app-root/* \
     && mkdir -p ${HOME}/.pki/nssdb \
-    && chown -R 1001:0 ${HOME}/.pki \
+    && chown -R 1001:0 ${HOME}/.pki
 
 USER 1001 
