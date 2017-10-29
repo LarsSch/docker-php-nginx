@@ -57,20 +57,23 @@ ARG RESTY_CONFIG_OPTIONS_MORE=${RESTY_CONFIG_OPTIONS_MORE:-""}
 USER root 
 
 ADD s2i/bin $STI_SCRIPTS_PATH
+#ADD nginx/scripts $STI_SCRIPTS_PATH
 
 RUN $STI_SCRIPTS_PATH/build \
     && mv /usr/local/openresty/nginx /opt/app-root/ \
     && ln -sf /opt/app-root/nginx /usr/local/openresty/nginx
 
+RUN ln -sf /opt/app-root/nginx /etc/nginx \
+    && apt-get update && apt-get install --no-install-recommends -y runit \
+    && DEBIAN_FRONTEND=noninteractive apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /usr/share/doc/* /usr/share/man/* /root/.cache
 # Add additional binaries into PATH for convenience
-ENV PATH=$PATH:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
-
+ENV PATH=$PATH:/usr/local/sbin:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
 
 ENV NGINX_CACHE=0
 
 ADD nginx/common /opt/app-root/nginx/conf
+ADD services.d /opt/app-root/etc/service
 
-EXPOSE 8080 8081 9000
 
 # Reset permissions of modified directories and add default user
 RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
@@ -79,6 +82,14 @@ RUN chown -R 1001:0 /opt/app-root \
     && chmod -R g+w /opt/app-root \
     && chmod ug+s /opt/app-root/* \
     && mkdir -p ${HOME}/.pki/nssdb \
-    && chown -R 1001:0 ${HOME}/.pki
+    && chown -R 1001:0 ${HOME}/.pki \
+    && chmod 775 /var/run && chmod 775 /run \
+    && chmod ug+s /run /var/run \
+    && chown 1001 /var/run /run
+
+
+EXPOSE 8080 8081 9000
+
+CMD [ "/usr/bin/runsvdir", "/opt/app-root/etc/service" ]
 
 USER 1001 
