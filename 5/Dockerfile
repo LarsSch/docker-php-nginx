@@ -64,6 +64,7 @@ RUN $STI_SCRIPTS_PATH/build \
     && ln -sf /opt/app-root/nginx /usr/local/openresty/nginx
 
 RUN ln -sf /opt/app-root/nginx/conf /etc/nginx \
+    && ln -sf /opt/app-root/nginx/logs /var/log/nginx \
     && apt-get update && apt-get install --no-install-recommends -y runit \
     && DEBIAN_FRONTEND=noninteractive apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/log/* /usr/share/doc/* /usr/share/man/* /root/.cache
 # Add additional binaries into PATH for convenience
