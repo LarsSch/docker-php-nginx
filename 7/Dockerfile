@@ -1,4 +1,4 @@
-FROM oondeo/php:5
+FROM oondeo/php:7
 
 
 ENV SUMMARY="Nginx image with standar modules"	\
@@ -12,9 +12,9 @@ LABEL summary="$SUMMARY" \
       io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       io.s2i.scripts-url=image:///usr/libexec/s2i \
       com.redhat.component="nginx" \
-      name="oondeo/php-5-nginx" \
-      version="5" \
-      release="6" \
+      name="oondeo/php-7-nginx" \
+      version="7" \
+      release="2" \
       maintainer="OONDEO <info@oondeo.es>"
 
 # Docker Build Arguments
