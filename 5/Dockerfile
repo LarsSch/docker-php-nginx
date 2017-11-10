@@ -71,7 +71,9 @@ RUN ln -sf /opt/app-root/nginx/conf /etc/nginx \
 # Add additional binaries into PATH for convenience
 ENV PATH=$PATH:/usr/local/sbin:/usr/local/openresty/luajit/bin/:/usr/local/openresty/nginx/sbin/:/usr/local/openresty/bin/
 
-ENV NGINX_CACHE=0
+#This is needed in development
+ENV NGINXCONF_FASTCGI_READ_TIMEOUT=3600 \
+    NGINX_CACHE=0
 
 ADD nginx/common /opt/app-root/nginx/conf
 ADD services.d /opt/app-root/etc/service
