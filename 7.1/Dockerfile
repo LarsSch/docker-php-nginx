@@ -1,4 +1,4 @@
-FROM oondeo/php:7
+FROM oondeo/php:7.1
 
 
 ENV SUMMARY="Nginx image with standar modules"	\
@@ -14,7 +14,7 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="nginx" \
       name="oondeo/php-7-nginx" \
       version="7" \
-      release="2" \
+      release="1" \
       maintainer="OONDEO <info@oondeo.es>"
 
 # Docker Build Arguments
@@ -78,19 +78,8 @@ ENV NGINXCONF_FASTCGI_READ_TIMEOUT=3600 \
 ADD nginx/common /opt/app-root/nginx/conf
 ADD services.d /opt/app-root/etc/service
 
-# Reset permissions of modified directories and add default user
-RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
-      -c "Default Application User" default || true
-RUN chown -R 1001:0 /opt/app-root \
-    && ln -sf /opt/app-root/nginx/logs /var/log/nginx \ 
-    && chmod -R g+w /opt/app-root \
-    && chmod ug+s /opt/app-root/* \
-    && mkdir -p ${HOME}/.pki/nssdb \
-    && chown -R 1001:0 ${HOME}/.pki \
-    && chmod 775 /var/run && chmod 775 /run \
-    && chmod ug+s /run /var/run \
-    && chown 1001 /var/run /run 
-
+RUN ln -sf /usr/local/openresty/nginx/logs /var/log/nginx
+RUN /usr/bin/docker-footer
 
 EXPOSE 8080 8081 9000
 
