@@ -33,7 +33,7 @@ spec:
       version: "7"
     from:
       kind: DockerImage
-      name: oondeo/docker-php-7-nginx:7
+      name: oondeo/php-nginx:7
     name: "7"
     referencePolicy:
       type: Source     
