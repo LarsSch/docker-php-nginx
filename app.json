@@ -1,0 +1,21 @@
+{
+  "name": "docker-php-nginx",
+  "scripts": {
+  },
+  "env": {
+    "NGINX_WORKERS": {
+      "required": true
+    },
+    "undefined": "2"
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/beanieboi/nginx-buildpack"
+    }
+  ]
+}
